@@ -4,21 +4,116 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     
-    <!-- Модельная версия (не меняется) -->
+    <!-- Модель POM версии 4.0.0 -->
     <modelVersion>4.0.0</modelVersion>
     
-    <!-- Идентификаторы проекта -->
-    <groupId>com.example</groupId>       <!-- Обычно домен наоборот -->
-    <artifactId>my-study-project</artifactId>  <!-- Имя проекта -->
-    <version>1.0-SNAPSHOT</version>      <!-- Версия -->
+    <!-- ===================== БАЗОВАЯ ИНФОРМАЦИЯ ===================== -->
+    <groupId>com.company</groupId>
+    <artifactId>my-project</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
     
-    <!-- Свойства -->
+    <!-- ===================== МЕТАДАННЫЕ ===================== -->
+    <name>My Java Project</name>
+    <description>Пример Java проекта с Maven</description>
+    <url>https://github.com/username/my-project</url>
+    
+    <!-- ===================== ЛИЦЕНЗИЯ ===================== -->
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+    
+    <!-- ===================== РАЗРАБОТЧИКИ ===================== -->
+    <developers>
+        <developer>
+            <id>developer1</id>
+            <name>Иван Иванов</name>
+            <email>ivan@company.com</email>
+            <roles>
+                <role>Architect</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+    
+    <!-- ===================== СВОЙСТВА ===================== -->
     <properties>
-        <!-- Версия Java -->
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <!-- Кодировка -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        
+        <!-- Версии зависимостей -->
+        <junit.version>5.9.2</junit.version>
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
     </properties>
     
+    <!-- ===================== ЗАВИСИМОСТИ ===================== -->
+    <dependencies>
+        <!-- JUnit для тестирования -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Mockito для моков в тестах -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.3.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
+    <!-- ===================== СБОРКА ===================== -->
+    <build>
+        <plugins>
+            <!-- Компилятор Java -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            
+            <!-- Плагин для запуска тестов -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <skipTests>false</skipTests>
+                </configuration>
+            </plugin>
+            
+            <!-- Создание исполняемого JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.company.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
